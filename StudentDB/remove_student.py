@@ -1,0 +1,10 @@
+import register_student
+
+def withdraw_student():
+    student_id = input("Enter the ID of the student you want to remove: ").lower()
+
+    if student_id in register_student.student_registration:
+        del register_student.student_registration[student_id]  # Remove the student
+        print(f"Student with ID {student_id} has been removed.\n")
+    else:
+        print(f"Student with the ID {student_id} does not exist.\n")
