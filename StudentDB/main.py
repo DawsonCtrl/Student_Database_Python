@@ -1,5 +1,12 @@
-import register_student, display_student, student_email, student_id, remove_student
+import display_student
+import register_student
+import remove_student
+import student_email
+import student_id
+import sqlite3
 
+connection = sqlite3.connect("studentDB.db")
+cursor = connection.cursor()
 
 def main_menu():
     while True:
@@ -21,7 +28,7 @@ def main_menu():
         elif choice == 'search_by_id':
             student_id.search_student_by_id()
         elif choice == 'withdraw':
-           remove_student.withdraw_student()
+            remove_student.withdraw_student()
         elif choice == 'end':
             break
         else:
