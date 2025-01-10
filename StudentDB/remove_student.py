@@ -1,5 +1,6 @@
 import register_student
 
+
 def withdraw_student():
     student_id = input("Enter the ID of the student you want to remove: ").lower()
 

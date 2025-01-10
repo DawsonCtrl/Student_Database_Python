@@ -1,4 +1,10 @@
+import sqlite3
+
 student_registration = {}
+
+connection = sqlite3.connect("studentDB.db")
+cursor = connection.cursor()
+
 
 def register_student():
     student_id = input("\nEnter student ID: ").lower()
@@ -9,6 +15,9 @@ def register_student():
     if student_id not in student_registration and email.endswith("@humber.ca") and all(
             student['email'] != email for student in student_registration.values()):
         student_registration[student_id] = {'name': name, 'email': email, 'program enrolled': program_enrolled}
+        cursor.execute("INSERT INTO students (student_id, name, email, program_enrolled) VALUES (?, ?, ?, ?)",
+                       (student_id, name, email, program_enrolled))
+
         print("Student registered successfully!\n")
     else:
         if student_id in student_registration and email in [student['email'] for student in

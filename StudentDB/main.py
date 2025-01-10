@@ -4,9 +4,30 @@ import remove_student
 import student_email
 import student_id
 import sqlite3
+import os
 
-connection = sqlite3.connect("studentDB.db")
+db_name = "studentDB.db"
+connection = sqlite3.connect(db_name)
 cursor = connection.cursor()
+
+
+def db_check():
+    if os.path.exists(db_name):
+        print(f"Database '{db_name}' exists. Ready to perform operations.")
+        main_menu()
+    else:
+        print(f"Database '{db_name}' does not exist. Creating the database and setting up tables.")
+        connection = sqlite3.connect(db_name)
+        cursor = connection.cursor()
+
+        cursor.execute('''
+        CREATE TABLE if NOT EXISTS student_information (student_id VARCHAR(255) PRIMARY KEY, name VARCHAR(255) NOT NULL, 
+        email VARCHAR(255) UNIQUE NOT NULL, program_enrolled VARCHAR(255))''')
+        connection.commit()
+        connection.close()
+        print("Database created successfully")
+        main_menu()
+
 
 def main_menu():
     while True:
@@ -37,4 +58,4 @@ def main_menu():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main_menu()
+    db_check()
