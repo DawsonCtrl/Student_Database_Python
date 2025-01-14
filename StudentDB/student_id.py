@@ -1,4 +1,9 @@
 import register_student
+import sqlite3
+
+connection = sqlite3.connect("studentsDB.db")
+cursor = connection.cursor()
+
 
 def search_student_by_id():
     id_to_search = input("\nEnter the student ID to search: ").lower()
@@ -11,5 +16,6 @@ def search_student_by_id():
         email = student['email']
         program_enrolled = student['program enrolled']
         print("%20s%20s%30s%25s" % (name, id_to_search, email, program_enrolled))
+        cursor.execute("SELECT * FROM students WHERE student_id = %s", id_to_search)
     else:
         print("Student with the given ID does not exist.\n")

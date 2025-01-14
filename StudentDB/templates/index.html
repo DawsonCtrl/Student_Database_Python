@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+</head>
+<body>
+    <h1>Welcome to the Student Database</h1>
+    <ul>
+        <li><a href="{{ url_for('reg_student') }}">Add Student</a></li>
+        <li><a href="{{ url_for('disp_student') }}">Display All Students</a></li>
+        <li><a href="{{ url_for('search_email') }}">Search Student by Email</a></li>
+        <li><a href="{{ url_for('search_by_id') }}">Search Student by ID</a></li>
+    </ul>
+</body>
+</html>
