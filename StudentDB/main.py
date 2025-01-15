@@ -102,6 +102,31 @@ def search_by_id():
 
     return render_template('search_by_id.html')
 
+
+@app.route('/withdraw.html', methods=['GET', 'POST'])
+def withdraw():
+    if request.method == 'POST':
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        student_id = request.form['student_id']
+
+        # Execute a query to fetch the student details based on the provided student_id
+        cursor.execute('SELECT * FROM students WHERE student_id = ?', (student_id,))
+        student = cursor.fetchone()
+
+        if student:
+            # If the student exists, delete them from the database
+            cursor.execute('DELETE FROM students WHERE student_id = ?', (student_id,))
+            connection.commit()  # Commit the transaction to apply the changes
+            return render_template('withdraw.html', student=[student])
+        else:
+            # If no matching student is found, display an error message
+            return render_template('withdraw.html', error="Student does not exist.")
+
+    # Render the form for the GET method
+    return render_template('withdraw.html')
+
+
 # Run Flask app and perform database check
 def run_flask_app():
     app.run(debug=True, use_reloader=False)  # Running Flask app in the background thread
